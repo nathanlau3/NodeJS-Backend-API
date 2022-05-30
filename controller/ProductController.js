@@ -9,7 +9,7 @@ const addProduct = async (req, res) => {
         const { UserID, ProductName, Category, Province, City, Caption, Price, Image } = req.body;      
         let getAllProduk = await Product.findAll({raw: true});     
         const json = Object.keys(getAllProduk).length;    
-        const ts = new Date();    
+        const ts = new Date();      
         const ProductID = `${ts.getFullYear()}P${json}`;
         const createdAt = ts;
         // initialize models database
@@ -51,11 +51,11 @@ const getAllProduct = async (req, res) => {
 
 const getProductByUserID = async (req, res) => {
     try{
-        const { UserID} = req.body;
-        const getMyProduct = await Product.findAll({
+        let ProductID = req.params.ProductID;
+        const getMyProduct = await Product.findOne({
             where: {
-                UserID: UserID
-            }            
+                ProductID: ProductID
+            }
             
         });       
 

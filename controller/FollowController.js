@@ -53,11 +53,11 @@ const unFollowed = async (req, res) => {
         const { UserIDFollowed, UserIDFollowing} = req.body;      
         const createdAt = Date.now();
         // initialize models database
-        const Follow = new Followers({
-            UserIDFollowed,
-            UserIDFollowing,           
-            createdAt
-        });
+        // const Follow = new Followers({
+        //     UserIDFollowed,
+        //     UserIDFollowing,           
+        //     createdAt
+        // });
         const DataFollow = await Account.findOne({raw: true, where:{
             UserID: UserIDFollowed
         }});
@@ -65,13 +65,16 @@ const unFollowed = async (req, res) => {
         let newAccount = DataFollow;
         newAccount.Followers = newAccount.Followers - 1;
 
-        await Account.delete({Followers: newAccount.Followers},{
+        await Account.update({Followers: newAccount.Followers},{
             where: {
                 UserID: UserIDFollowed
             }
         })
 
-        await Follow.save();
+        await Followers.destroy({where: {
+            UserIDFollowed: UserIDFollowed,
+            UserIDFollowing: UserIDFollowing
+        }})
         res.status(200).send("Unfollowed completed");
     }
     catch (err)

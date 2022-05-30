@@ -7,8 +7,8 @@ const bodyParser = require('body-parser')
 // app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs))
 
 // sequelize.authenticate().then(() => console.log("respon nodejs berhasil"));
-var jsonParser = bodyParser.json({limit:1024*1024*10, type:'application/json'}); 
-var urlencodedParser = bodyParser.urlencoded({ extended:true,limit:1024*1024*10,type:'application/x-www-form-urlencoded' });
+var jsonParser = bodyParser.json({limit:"10mb", type:'application/json'}); 
+var urlencodedParser = bodyParser.urlencoded({ extended:true,limit:"10mb",type:'application/x-www-form-urlencoded' });
 app.use(urlencodedParser);
 app.use(jsonParser);
 
