@@ -7,7 +7,7 @@ const Follow = db.Follow;
 
 const addAccount = async (req, res) => {
     try{
-        const { Email, UserName, FullName, OriginProvince, OriginCity, Telephone } = req.body;      
+        const { Email, UserName, FullName, OriginProvince, OriginCity, Telephone, IsStore } = req.body;      
         let getAllAccount = await Account.findAll({raw: true});     
         const json = Object.keys(getAllAccount).length;    
         const ts = new Date();
@@ -24,6 +24,7 @@ const addAccount = async (req, res) => {
             OriginCity,
             Followers,
             Telephone,
+            IsStore,
             createdAt
         });
 

@@ -18,7 +18,7 @@ const Account = sequelize.define(
         Telephone: {type: Sequelize.STRING, allowNull: false},
         Followers: {type: Sequelize.INTEGER, allowNull: false},
         createdAt: {type: Sequelize.DATE, allowNull: true },
-        IsStore: {type: Sequelize.BOOLEAN, allowNull: true, defaultValue: false }
+        IsStore: {type: Sequelize.BOOLEAN, defaultValue: false}
     },
     {
         freezeTableName: true,
