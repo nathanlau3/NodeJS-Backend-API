@@ -49,28 +49,9 @@ const getAllProduct = async (req, res) => {
     }
 }
 
-const getProductByUserID = async (req, res) => {
-    try{
-        let ProductID = req.params.ProductID;
-        const getMyProduct = await Product.findOne({
-            where: {
-                ProductID: ProductID
-            }
-            
-        });       
-
-        res.json(getMyProduct);
-    }
-    catch (err)
-    {
-        console.error(err.message);
-        res.status(500).send(err.message);
-    }
-}
-
 const getProductByProductID = async (req, res) => {
     try{
-        const {ProductID} = req.body;
+        const ProductID = req.params.ProductID;
         const getMyProduct = await Product.findAll({
             where: {
                 ProductID: ProductID
@@ -131,6 +112,6 @@ const hasSeen = async (req, res) => {
 module.exports = {
     addProduct,
     getAllProduct,
-    getProductByUserID,
+    getProductByProductID,
     hasSeen
 }

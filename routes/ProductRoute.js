@@ -8,7 +8,7 @@ router.use(express.json({ limit: '50mb' }));
 router.use(express.urlencoded({ limit: '50mb', extended: true }));
 router.post('/addProduct', ProductController.addProduct);
 router.get('/getAllProduct', ProductController.getAllProduct);
-router.get('/getProductByUserID/:ProductID', ProductController.getProductByUserID);
+router.get('/getProductByUserID/:ProductID', ProductController.getProductByProductID);
 router.post('/seen', ProductController.hasSeen);
 
 module.exports = router;
