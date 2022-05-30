@@ -15,7 +15,7 @@ const Account = sequelize.define(
         FullName: {type: Sequelize.STRING, allowNull: false},
         OriginProvince: {type: Sequelize.STRING, allowNull: false},
         OriginCity: {type: Sequelize.STRING, allowNull: false},
-        Telephone: {type: Sequelize.INTEGER, allowNull: false},
+        Telephone: {type: Sequelize.STRING, allowNull: false},
         Followers: {type: Sequelize.INTEGER, allowNull: false},
         createdAt: {type: Sequelize.DATE, allowNull: true, }
     },
