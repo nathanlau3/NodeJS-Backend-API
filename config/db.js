@@ -1,5 +1,4 @@
 require('dotenv').config();
-const config = require('./config.js');
 // const fs = require('fs');
 // const path = require('path');
 // const key = fs.readFileSync(path.join(__dirname, '../cert', 'client-key.pem'));

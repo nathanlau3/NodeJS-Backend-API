@@ -17,8 +17,7 @@
     "nodemon": "^2.0.16"
   },
   "scripts": {
-    "dev": "set NODE_ENV=development&& nodemon app.js",
-    "prod": "set NODE_ENV=production&& node app.js"
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
