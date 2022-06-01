@@ -162,7 +162,7 @@ const getProductFilter = async (req, res) => {
             }
         }
         
-        const getProduct = await Account.findAll({raw: true,
+        const getProduct = await Product.findAll({raw: true,
             where: List
         });
         // const getAllAccount = await Account.findAll({raw: true,
