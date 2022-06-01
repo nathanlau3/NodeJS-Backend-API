@@ -1,3 +1,4 @@
+const { sequelize } = require('../model');
 const db = require('../model');
 require('dotenv').config();
 
@@ -51,6 +52,53 @@ const getAllAccount = async (req, res) => {
     }
 }
 
+const getAccountFilter = async (req, res) => {
+    try{
+        let { Email, UserName, FullName, OriginProvince, OriginCity, Telephone, IsStore} = req.body;
+        var List = {
+            Email: Email,
+            UserName: UserName,
+            FullName: FullName,
+            OriginProvince: OriginProvince,
+            OriginCity: OriginCity,
+            Telephone: Telephone,
+            IsStore: IsStore
+        }
+
+        for (var key of Object.keys(List))
+        {
+            if (List[key] == undefined)
+            {
+                delete List[key]; 
+            }
+        }
+        
+        const getAllAccount = await Account.findAll({raw: true,
+            where: List
+        });
+        // const getAllAccount = await Account.findAll({raw: true,
+        //     attributes: {
+        //         include: [
+        //             [
+        //                 sequelize.literal(`
+        //                 (
+        //                     SELECT * FROM account
+        //                 )
+        //                 `)
+        //             ]
+        //         ]
+        //     }
+        // });
+
+        res.json(getAllAccount);
+    }
+    catch (err)
+    {
+        console.error(err.message);
+        res.status(500).send("server error");
+    }
+}
+
 const getAccountByUserID = async (req, res) => {
     try{
         const UserID = req.params.UserID;
@@ -74,8 +122,37 @@ const getAccountByUserID = async (req, res) => {
     }
 }
 
+const updateAccount = async (req, res) => {
+    let { UserID, Email, UserName, FullName, OriginProvince, OriginCity, Telephone, IsStore} = req.body;
+        var List = {
+            Email: Email,
+            UserName: UserName,
+            FullName: FullName,
+            OriginProvince: OriginProvince,
+            OriginCity: OriginCity,
+            Telephone: Telephone,
+            IsStore: IsStore
+        }
+
+        for (var key of Object.keys(List))
+        {
+            if (List[key] == undefined)
+            {
+                delete List[key]; 
+            }
+        }
+
+        await Account.update(List, {where:{
+          UserID: UserID  
+        }})
+
+        res.status(200).send("Update data success");
+}
+
 module.exports = {
     addAccount,
     getAllAccount,
-    getAccountByUserID
+    getAccountByUserID,
+    getAccountFilter,
+    updateAccount
 }
