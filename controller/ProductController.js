@@ -109,9 +109,36 @@ const hasSeen = async (req, res) => {
     }
 }
 
+const updateProduct = async (req, res) => {
+    let { ProductID, ProductName, Category, Province, City, Caption, Price} = req.body;
+        var List = {
+            ProductName: ProductName,
+            Category: Category,
+            Province: Province,
+            City: City,
+            Caption: Caption,
+            Price: Price
+        }
+
+        for (var key of Object.keys(List))
+        {
+            if (List[key] == undefined)
+            {
+                delete List[key]; 
+            }
+        }
+
+        await Product.update(List, {where:{
+          ProductID: ProductID
+        }})
+
+        res.status(200).send("Update data success");
+}
+
 module.exports = {
     addProduct,
     getAllProduct,
     getProductByProductID,
-    hasSeen
+    hasSeen,
+    updateProduct
 }
