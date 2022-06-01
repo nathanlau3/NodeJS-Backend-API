@@ -110,7 +110,8 @@ const hasSeen = async (req, res) => {
 }
 
 const updateProduct = async (req, res) => {
-    let { ProductID, ProductName, Category, Province, City, Caption, Price} = req.body;
+    try{
+        let { ProductID, ProductName, Category, Province, City, Caption, Price} = req.body;
         var List = {
             ProductName: ProductName,
             Category: Category,
@@ -133,6 +134,58 @@ const updateProduct = async (req, res) => {
         }})
 
         res.status(200).send("Update data success");
+    }
+    catch (err)
+    {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+    
+}
+
+const getProductFilter = async (req, res) => {
+    try{
+        let { ProductName, Category, Province, City, Price} = req.body;
+        var List = {
+            ProductName: ProductName,
+            Category: Category,
+            Province: Province,
+            City: City,
+            Price: Price
+        }
+
+        for (var key of Object.keys(List))
+        {
+            if (List[key] == undefined)
+            {
+                delete List[key]; 
+            }
+        }
+        
+        const getProduct = await Account.findAll({raw: true,
+            where: List
+        });
+        // const getAllAccount = await Account.findAll({raw: true,
+        //     attributes: {
+        //         include: [
+        //             [
+        //                 sequelize.literal(`
+        //                 (
+        //                     SELECT * FROM account
+        //                 )
+        //                 `)
+        //             ]
+        //         ]
+        //     }
+        // });
+
+        res.json(getProduct);
+    }
+    catch (err)
+    {
+        console.error(err.message);
+        res.status(500).send("server error");
+    }
 }
 
 module.exports = {
@@ -140,5 +193,6 @@ module.exports = {
     getAllProduct,
     getProductByProductID,
     hasSeen,
-    updateProduct
+    updateProduct,
+    getProductFilter
 }
