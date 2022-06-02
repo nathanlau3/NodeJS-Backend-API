@@ -15,6 +15,7 @@ const addProduct = async (req, res) => {
         const ts = new Date();      
         const ProductID = `${ts.getFullYear()}P${json}`;
         const createdAt = ts;
+        const HasSeen = 0;
         // initialize models database
         const newProduk = new Product({
             ProductID,
@@ -26,6 +27,7 @@ const addProduct = async (req, res) => {
             Description,
             Price,
             Image,
+            HasSeen,
             createdAt
         });
 

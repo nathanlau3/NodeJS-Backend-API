@@ -17,7 +17,7 @@ const Product = sequelize.define(
         City: {type: Sequelize.STRING, allowNull: false},
         Description: {type: Sequelize.STRING, allowNull: true},
         Price: {type: Sequelize.INTEGER, allowNull: false},
-        Image: {type: Sequelize.STRING, allowNull: true},
+        Image: {type: Sequelize.STRING, allowNull: false, defaultValue: 0},
         HasSeen: {type: Sequelize.INTEGER, allowNull: true},
         createdAt: {type: Sequelize.DATE, allowNull: true}
     },
