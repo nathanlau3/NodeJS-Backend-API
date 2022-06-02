@@ -7,7 +7,7 @@ const productSeen = db.productSeen;
 
 const addProduct = async (req, res) => {
     try{
-        let { UserID, ProductName, Category, Province, City, Caption, Price} = req.body;  
+        let { UserID, ProductName, Category, Province, City, Description, Price} = req.body;  
         let fileUrl = req.file.path.replace(/\\/g, "/").substring("images".length);
         let Image = fileUrl;
         let getAllProduk = await Product.findAll({raw: true});     
@@ -23,7 +23,7 @@ const addProduct = async (req, res) => {
             Category,
             Province,
             City,
-            Caption,
+            Description,
             Price,
             Image,
             createdAt
@@ -119,13 +119,13 @@ const hasSeen = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try{
-        let { ProductID, ProductName, Category, Province, City, Caption, Price} = req.body;
+        let { ProductID, ProductName, Category, Province, City, Description, Price} = req.body;
         var List = {
             ProductName: ProductName,
             Category: Category,
             Province: Province,
             City: City,
-            Caption: Caption,
+            Description: Description,
             Price: Price
         }
 
