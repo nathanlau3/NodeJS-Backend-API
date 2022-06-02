@@ -1,4 +1,5 @@
 const db = require('../model');
+const fs = require('fs');
 require('dotenv').config();
 //create main model
 const Product = db.products;
@@ -6,7 +7,9 @@ const productSeen = db.productSeen;
 
 const addProduct = async (req, res) => {
     try{
-        const { UserID, ProductName, Category, Province, City, Caption, Price, Image } = req.body;      
+        let { UserID, ProductName, Category, Province, City, Caption, Price} = req.body;  
+        let fileUrl = req.file.path.replace(/\\/g, "/").substring("images".length);
+        let Image = fileUrl;
         let getAllProduk = await Product.findAll({raw: true});     
         const json = Object.keys(getAllProduk).length;    
         const ts = new Date();      
@@ -27,7 +30,8 @@ const addProduct = async (req, res) => {
         });
 
             await newProduk.save();
-            res.json(newProduk);
+            // newProduk.Image = buff.toString('base64')
+            res.status(200).send("Insert Data Success");
     }
     catch (err)
     {
@@ -38,8 +42,12 @@ const addProduct = async (req, res) => {
 
 const getAllProduct = async (req, res) => {
     try{
-        const getAllProduk = await Product.findAll({});
-
+        let getAllProduk = await Product.findAll({raw: true});
+        let Gambar = "";
+        for(let element in getAllProduct)
+        {
+            element.Image = new Buffer(element.Image, 'base64');
+        }
         res.json(getAllProduk);
     }
     catch (err)
@@ -145,8 +153,9 @@ const updateProduct = async (req, res) => {
 
 const getProductFilter = async (req, res) => {
     try{
-        let { ProductName, Category, Province, City, Price} = req.body;
+        let { ProductID, ProductName, Category, Province, City, Price} = req.body;
         var List = {
+            ProductID: ProductID,
             ProductName: ProductName,
             Category: Category,
             Province: Province,
