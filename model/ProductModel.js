@@ -15,7 +15,7 @@ const Product = sequelize.define(
         Category: {type: Sequelize.STRING, allowNull: false},
         Province: {type: Sequelize.STRING, allowNull: false},
         City: {type: Sequelize.STRING, allowNull: false},
-        Caption: {type: Sequelize.STRING, allowNull: false},
+        Description: {type: Sequelize.STRING, allowNull: false},
         Price: {type: Sequelize.INTEGER, allowNull: false},
         Image: {type: Sequelize.STRING, allowNull: true},
         HasSeen: {type: Sequelize.INTEGER, allowNull: true},

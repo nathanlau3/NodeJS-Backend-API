@@ -2,6 +2,7 @@ const ProductController = require('../controller/ProductController');
 const express = require('express');
 const path = require('path');
 const multer = require('multer');
+const DateTime = require('node-datetime/src/datetime');
 //router
 const router = require('express').Router();
 
@@ -10,19 +11,19 @@ const storage = multer.diskStorage({
         cb(null, 'images')
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname)
+        cb(null,  file.fieldname + '-' + Date.now())
     }
 });
 const upload = multer({storage: storage,
-    // fileFilter: (req, file, cb) => {
-    //     const fileTypes = /jpeg|jpg|png|gif/
-    //     const mimeType = fileTypes.test(file.mimetype)  ;
-    //     const extname = fileTypes.test(path.extname(file.originalname));
-    //     if(mimeType && extname) {
-    //         return cb(null, true)
-    //     }
-    //     cb('Give proper files formate to upload')
-    // }
+    fileFilter: (req, file, cb) => {
+        const fileTypes = /jpeg|jpg|png|gif/
+        const mimeType = fileTypes.test(file.mimetype)  ;
+        const extname = fileTypes.test(path.extname(file.originalname));
+        if(mimeType && extname) {
+            return cb(null, true)
+        }
+        cb('Give proper files formate to upload')
+    }
 });
 
 //use routers
