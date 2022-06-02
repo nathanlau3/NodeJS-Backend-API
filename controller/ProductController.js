@@ -197,11 +197,31 @@ const getProductFilter = async (req, res) => {
     }
 }
 
+const getProductCategory = async (req, res) => {
+    try{
+        const getMyProduct = await Product.findAll({
+            
+            attributes: 
+                ['Category']
+            ,
+            raw: true            
+        });       
+        res.json(getMyProduct);
+
+    }
+    catch (err)
+    {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+}
+
 module.exports = {
     addProduct,
     getAllProduct,
     getProductByProductID,
     hasSeen,
     updateProduct,
-    getProductFilter
+    getProductFilter,
+    getProductCategory
 }

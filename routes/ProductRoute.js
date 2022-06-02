@@ -32,6 +32,7 @@ router.use(express.urlencoded({ limit: '50mb', extended: true }));
 router.post('/addProduct', upload.single('Image'), ProductController.addProduct);
 router.get('/getAllProduct', ProductController.getAllProduct);
 router.get('/getProductFilter', ProductController.getProductFilter);
+router.get('/getAllProductCategory', ProductController.getProductCategory);
 router.get('/getProductByUserID/:ProductID', ProductController.getProductByProductID);
 router.post('/seen', ProductController.hasSeen);
 router.put('/updateProduct', ProductController.updateProduct);
