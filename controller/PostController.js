@@ -57,6 +57,7 @@ const getPost = async (req, res) => {
             attributes: 
             ['FullName']})
             element.FullName = fullName.FullName;
+            //ko gk jalan?
         }
         res.json(getAllPost);
     }
