@@ -31,8 +31,4 @@ jobs:
           key: ${{ secrets.PRIVATE }}
           port: 22
           script: |
-            cd
-            cp .env NodeJS-Backend-API  
-            cd NodeJS-Backend-API
-            git pull origin main
-            pm2 restart artjuna
+            
